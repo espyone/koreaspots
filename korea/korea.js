@@ -90,7 +90,7 @@ const buddhistTemples = koreaSpots.filter(buddhist => buddhist.info.includes('te
 
 // LOCATION CATEGORY VARIABLES
 const temples = document.querySelector('#temples');
-temples.addEventListener('click',postTemples)
+temples.addEventListener('change',postTemples)
 const skateparks = document.querySelector('#skateparks');
 skateparks.addEventListener('click', postSkateParks)
 const skateshops = document.querySelector('#skateshops');
@@ -99,24 +99,26 @@ const musicvenues = document.querySelector('#musicvenues');
 musicvenues.addEventListener('click', postMusicVenues)
 const artvenues = document.querySelector('#artvenues');
 artvenues.addEventListener('click', postArtVenues)
-const zoosAquariums = document.querySelector('#zoos');
+const zoosAquariums = document.querySelector('#zoosaquariums');
 zoosAquariums.addEventListener('click', postZoosAquariums)
 
 
 // FUNCTION FOR SELECT OBJECTS PROVINCE FILTERING
 var provinceChoice
+
 const provinces = document.querySelector('#provinces')
-provinces.addEventListener('click', () => {
-    e = document.getElementById('provinces')
-    provinceChoice = e.options[e.selectedIndex].value.toLowerCase();
+provinces.addEventListener('change', () =>{ 
+    // GET PROVINCE VALUE AS VARIAblE
+    provinceChoice = provinces.value.toLowerCase()
+    // REMOVE ANY POSSIBLE PREVIOUS DIVS
     if (document.querySelector('.province-check')) 
     {document.querySelector('.province-check').remove()}
+    // CREATE NEW DIV with 'PROVINCE-CHECK' class
     const provAdd = document.createElement('div')
     provAdd.classList.add('province-check')
     provAdd.classList.add(`${provinceChoice}`) 
     document.body.appendChild(provAdd)
 })
-
 
 // FUNCTION FOR TEMPLE CATEGORY
 function postTemples() {
@@ -127,29 +129,29 @@ function postTemples() {
         const templesList = document.createElement('div')
         templesList.classList.add('temples')
         document.body.appendChild(templesList)
-        templesList.innerHTML = `<b>Buddhist Temples</b><br>`
+        titleText = `<b>Buddhist Temples</b><br>`
+        templesList.innerHTML = `${titleText}`
         //CYCLE THROUGH TEMPLE RESULTS
-        for(let i=0; i<= buddhistTemples.length; i++) { 
+        for(let i=0; i< buddhistTemples.length; i++) { 
         // VARIABLE FOR RESULTS' INDIVIDUAL PROVINCE RESULTS
             current = buddhistTemples[i].province.toLowerCase()
-            
         //FILTER TEMPLE RESULTS BY PROVINCE BY MATCHING VARIABLES
             if (provCheck.classList.contains(current) || provCheck.classList.contains('all') ) {
             //'RESULT' CLASS ADDED TO TRIGGER RESULT-FILLED RESPONSE    
             provCheck.classList.add('result')
+        
             // output of results
             templesList.innerHTML += `${buddhistTemples[i].venue}, ${buddhistTemples[i].province}, ${buddhistTemples[i].city}<br>`
-            }
+            
+            } // if/then loop ends
         }   // for loop ends
-} 
-// UNCHECKED BOX REMOVES RESULTS LIST
-else {
+} // if / then loop for checkbox ends
+
+else { // remove results list with unchecked checkbox
     const templesList = document.querySelector('.temples')
     templesList.remove()
-}
-}
-
-
+} 
+}  // function close
 // if  (!provCheck.classList.contains("result")) {
 //     templesList.innerHTML += 'there are no results for this province'}
 
@@ -168,7 +170,7 @@ function postSkateParks() {
 
          
             current = skateParks[i].province.toLowerCase()
-            console.log(current)
+            
             provCheck = document.querySelector('.province-check')
 
             if (
@@ -193,13 +195,13 @@ function postSkateShops() {
         for(let i=0; i<= skateShops.length; i++) {
 
             current = skateShops[i].province.toLowerCase()
-            console.log(current)
+
             provCheck = document.querySelector('.province-check')
 
             if (
             provCheck.classList.contains(current) || provCheck.classList.contains('all')
             ) 
-            {
+            { 
         skateShopsList.innerHTML += `${skateShops[i].venue}, ${skateShops[i].province}, ${skateShops[i].city}<br>`
     }
 }
@@ -218,7 +220,7 @@ function postMusicVenues() {
         for(let i=0; i<= musicVenues.length; i++) {
 
             current = musicVenues[i].province.toLowerCase()
-            console.log(current)
+            
             provCheck = document.querySelector('.province-check')
 
             if (
@@ -244,7 +246,7 @@ function postArtVenues() {
         for(let i=0; i<= artVenues.length; i++) {
 
             current = artVenues[i].province.toLowerCase()
-            console.log(current)
+            
             provCheck = document.querySelector('.province-check')
 
             if (
@@ -269,7 +271,7 @@ function postZoosAquariums() {
         for(let i=0; i<= zoos.length; i++) {
 
             current = zoos[i].province.toLowerCase()
-            console.log(current)
+            
             provCheck = document.querySelector('.province-check')
 
             if (
