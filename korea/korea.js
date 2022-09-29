@@ -1,3 +1,5 @@
+
+//  OBJECT ARRAY OF LOCATIONS
 const koreaSpots = [
 {venue: 'Gwangmyeong Cave',	compass: 'W',	city: 'Gwangmyeong', province: 'Gyeonggi',	info: 'cave theme park', category: '',	korean:'광명동굴'},
 {venue: 'Songdo Monster VR',	compass: 'W',	city: 'Incheon', province: 'Gyeonggi',	info: 'VR arcade', category: '',	korean:'송도 몬스터 VR'},
@@ -74,104 +76,84 @@ const koreaSpots = [
 {venue: 'Geumgang Suspension Bridge',	compass:'N',	city:'Jeonju + Wanju-gun',	province:'Jeonbuk', info:'suspension bridge',	korean:'금강구름다리'},
 {venue: 'Daejeon Museum of Art',	compass:'SE',	city:'Seo-gu, Daejeon',	province:'Chungnam', info:'art museum',	korean:'대전시립미술관'}
 ]
-const provGyeonggi = koreaSpots.filter(dafuq => dafuq.province === "Gyeonggi")
-const provJeonnam = koreaSpots.filter(dafuq => dafuq.province === "Jeonnam")
-const provGyeongbuk = koreaSpots.filter(dafuq => dafuq.province === "Gyeongbuk")
-const provChungbuk = koreaSpots.filter(dafuq => dafuq.province === "Chungbuk")
-const provGangwon = koreaSpots.filter(dafuq => dafuq.province === "Gangwon")
-const provJeonbuk = koreaSpots.filter(dafuq => dafuq.province === "Jeonbuk")
-const provGyeongnam = koreaSpots.filter(dafuq => dafuq.province === "Gyeongnam")
-const provChungnam = koreaSpots.filter(dafuq => dafuq.province === "Chungnam")
 
+
+// LOCATIONS FILTERED BY CATEGORY
 const zoos = koreaSpots.filter(zoo => zoo.info.includes('zoo') || zoo.info.includes('aquarium'))
-
 const skateParks = koreaSpots.filter(skate => skate.info.includes('skate') && !skate.info.includes('shop'))
-
 const skateShops = koreaSpots.filter(skate => skate.info.includes('skate') && skate.info.includes('shop'))
-
 const musicVenues = koreaSpots.filter(music => music.info === "music venue")
-
 const artVenues = koreaSpots.filter(art => art.info.includes('art'))
-
 const buddhistTemples = koreaSpots.filter(buddhist => buddhist.info.includes('temple'))
 
-// console.log(provGyeonggi)
-// console.log(provChungbuk)
-// console.log(provGangwon)
-// console.log(provGyeongbuk)
-// console.log(provGyeongnam)
-// console.log(provJeonnam)
-// console.log(provJeonbuk)
-// console.log(provChungnam)
-
-//console.log(skateParks)
-//console.log(skateShops)
-//console.log(musicVenues)
-//console.log(artVenues)
-//console.log(buddhistTemples)
 
 
-
+// LOCATION CATEGORY VARIABLES
 const temples = document.querySelector('#temples');
 temples.addEventListener('click',postTemples)
-
 const skateparks = document.querySelector('#skateparks');
 skateparks.addEventListener('click', postSkateParks)
-
 const skateshops = document.querySelector('#skateshops');
 skateshops.addEventListener('click', postSkateShops)
-
 const musicvenues = document.querySelector('#musicvenues');
 musicvenues.addEventListener('click', postMusicVenues)
-
 const artvenues = document.querySelector('#artvenues');
 artvenues.addEventListener('click', postArtVenues)
-
 const zoosAquariums = document.querySelector('#zoos');
 zoosAquariums.addEventListener('click', postZoosAquariums)
 
-var provinceChoice
 
+// FUNCTION FOR SELECT OBJECTS PROVINCE FILTERING
+var provinceChoice
 const provinces = document.querySelector('#provinces')
 provinces.addEventListener('click', () => {
     e = document.getElementById('provinces')
     provinceChoice = e.options[e.selectedIndex].value.toLowerCase();
-    if (document.querySelector('.province-check')) {document.querySelector('.province-check').remove()}
+    if (document.querySelector('.province-check')) 
+    {document.querySelector('.province-check').remove()}
     const provAdd = document.createElement('div')
     provAdd.classList.add('province-check')
     provAdd.classList.add(`${provinceChoice}`) 
     document.body.appendChild(provAdd)
 })
 
+
+// FUNCTION FOR TEMPLE CATEGORY
 function postTemples() {
-    if(temples.checked == true) {
+        //VARIABLE FOR PROVINCES
+    provCheck = document.querySelector('.province-check')
+    if(temples.checked == true ) {
+        //CREATE DIV WITH 'TEMPLES' CLASS
         const templesList = document.createElement('div')
         templesList.classList.add('temples')
         document.body.appendChild(templesList)
         templesList.innerHTML = `<b>Buddhist Temples</b><br>`
-
+        //CYCLE THROUGH TEMPLE RESULTS
         for(let i=0; i<= buddhistTemples.length; i++) { 
-            
+        // VARIABLE FOR RESULTS' INDIVIDUAL PROVINCE RESULTS
             current = buddhistTemples[i].province.toLowerCase()
-            console.log(current)
-            provCheck = document.querySelector('.province-check')
-
-            if (
-            provCheck.classList.contains(current) || provCheck.classList.contains('all')
-            ) {
+            
+        //FILTER TEMPLE RESULTS BY PROVINCE BY MATCHING VARIABLES
+            if (provCheck.classList.contains(current) || provCheck.classList.contains('all') ) {
+            //'RESULT' CLASS ADDED TO TRIGGER RESULT-FILLED RESPONSE    
+            provCheck.classList.add('result')
+            // output of results
             templesList.innerHTML += `${buddhistTemples[i].venue}, ${buddhistTemples[i].province}, ${buddhistTemples[i].city}<br>`
             }
-           
-        
-        }
-    } else { 
-        const templesListRemove = document.querySelector('.temples')
-        templesListRemove.remove()
-    }
-
-
+        }   // for loop ends
+} 
+// UNCHECKED BOX REMOVES RESULTS LIST
+else {
+    const templesList = document.querySelector('.temples')
+    templesList.remove()
+}
 }
 
+
+// if  (!provCheck.classList.contains("result")) {
+//     templesList.innerHTML += 'there are no results for this province'}
+
+// FUNCTION FOR SKATE PARK CATEGORY
 function postSkateParks() {
     if(skateparks.checked == true) {
         const skateParksList = document.createElement('div')
@@ -201,7 +183,7 @@ function postSkateParks() {
         skateParksListRemove.remove()
     }
 }
-
+// FUNCTION FOR SKATE SHOP CATEGORY
 function postSkateShops() {
     if(skateshops.checked == true) {
         const skateShopsList = document.createElement('div')
@@ -226,7 +208,7 @@ function postSkateShops() {
         skateShopsListRemove.remove()
     }
 }
-
+// FUNCTION FOR MUSIC CATEGORY
 function postMusicVenues() {
     if(musicvenues.checked == true) {
         const musicVenuesList = document.createElement('div')
@@ -252,6 +234,7 @@ function postMusicVenues() {
     }
 }
 
+// FUNCTION FOR ART CATEGORY
 function postArtVenues() {
     if(artvenues.checked == true) {
         const artVenuesList = document.createElement('div')
@@ -276,6 +259,7 @@ function postArtVenues() {
     }
 }
 
+// FUNCTION FOR ZOO CATEGORY
 function postZoosAquariums() {
     if(zoosAquariums.checked == true) {
         const zooList = document.createElement('div')
