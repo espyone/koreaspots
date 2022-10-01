@@ -82,7 +82,7 @@ const koreaSpots = [
     const buddhistTemples = koreaSpots.filter(buddhist => buddhist.info.includes('temple'))
     const amusementParks = koreaSpots.filter(amusement => amusement.info.includes('amusement'))
     const outdoorsAttractions = koreaSpots.filter(outdoors => outdoors.category.includes('green'))
-    console.log(koreaSpots[3])
+    const vrArcades = koreaSpots.filter(arcade => arcade.info.includes('VR'))
  
  
     let provinceChoice
@@ -124,24 +124,27 @@ const koreaSpots = [
    searchAdd('zoosaquariums', "Zoos & Aquariums")
    searchAdd('amusementparks', "Amusement Parks")
    searchAdd('outdoorsattractions', "Outdoors Attractions")
+   searchAdd('vrarcades', "VR Arcades")
    
    
    const temples = document.querySelector('#temples');
-   temples.addEventListener('change',postTemples)
+   temples.onclick = () => postTemples()
    const skateparks = document.querySelector('#skateparks');
-   skateparks.addEventListener('change', postSkateParks)
+   skateparks.onclick = () => postSkateParks()
    const skateshops = document.querySelector('#skateshops');
-   skateshops.addEventListener('change', postSkateShops)
+   skateshops.onclick = () => postSkateShops()
    const musicvenues = document.querySelector('#musicvenues');
-   musicvenues.addEventListener('change', postMusicVenues)
+   musicvenues.onclick = () => postMusicVenues()
    const artvenues = document.querySelector('#artvenues');
-   artvenues.addEventListener('change', postArtVenues)
+   artvenues.onclick = () => postArtVenues()
    const zoosaquariums = document.querySelector('#zoosaquariums');
-   zoosaquariums.addEventListener('change', postZoosAquariums)
+   zoosaquariums.onclick = () => postZoosAquariums()
    const amusementparks = document.querySelector('#amusementparks');
-   amusementparks.addEventListener('change', postAmusementParks)
+   amusementparks.onclick = () => postAmusementParks()
    const outdoorsattractions = document.querySelector('#outdoorsattractions');
-   outdoorsattractions.addEventListener('change', postOutdoorsAttractions)
+   outdoorsattractions.onclick = () => postOutdoorsAttractions()
+   const vrarcades = document.querySelector('#vrarcades');
+   vrarcades.onclick = () => postVRArcades()
    
 
     function clearDivs(name) {
@@ -179,6 +182,14 @@ const koreaSpots = [
         newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Music Venues</b><br>`
         listVenues(musicvenues, musicVenues)
+    }
+    function postVRArcades() {
+        let divName  = 'vrarcadesdiv'
+        clearDivs(divName)
+        newDiv = document.createElement('div')
+        newDiv.classList.add(divName)
+        newDiv.innerHTML = `<b>VR Arcades</b><br>`
+        listVenues(vrarcades, vrArcades)
     }
     function postAmusementParks() {
         let divName  = 'amusementparksdiv'
