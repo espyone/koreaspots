@@ -95,6 +95,8 @@ const koreaSpots = [
     const zoosaquariums = document.querySelector('#zoosaquariums');
     zoosaquariums.addEventListener('change', postZoosAquariums)
     
+    const checked = document.querySelectorAll('input:checked');
+
     let provinceChoice
     const provinces = document.querySelector('#provinces')
     provinces.addEventListener('change', () =>{ 
@@ -110,54 +112,62 @@ const koreaSpots = [
         document.body.appendChild(provAdd)
     })
   
-    function clearDivs() {
-        if (document.querySelector('.newdiv')) {document.querySelector('.newdiv').remove()}
+    function clearDivs(name) {
+        if (document.querySelector(`.${name}`)) {document.querySelector(`.${name}`).remove()}
     }
     function postTemples() {
-        clearDivs()
+        let divName = 'templesdiv'
+        let titleLine = `<b>Buddhist Temples</b><br>`
+        clearDivs(divName)  
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
-        newDiv.innerHTML = `<b>Buddhist Temples</b><br>`
+        newDiv.classList.add(divName)
+        newDiv.innerHTML = titleLine
         listVenues(temples, buddhistTemples)
     }   
     function postSkateParks(){
-        clearDivs()
+        let divName  = 'skateparksdiv'
+        clearDivs(divName)
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
+        newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Skate Parks</b><br>`
         listVenues(skateparks, skateParks)
     }
     function postSkateShops() {
-        clearDivs()
+        let divName  = 'skateshopsdiv'
+        clearDivs(divName)
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
+        newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Skate Shops</b><br>`
         listVenues(skateshops, skateShops)
     }
     function postMusicVenues() {
-        clearDivs()
+        let divName  = 'musicvenuesdiv'
+        clearDivs(divName)
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
+        newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Music Venues</b><br>`
         listVenues(musicvenues, musicVenues)
     }
     function postArtVenues() {
-        clearDivs()
+        let divName  = 'artvenuesdiv'
+        clearDivs(divName)
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
+        newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Art Venues</b><br>`
         listVenues(artvenues, artVenues)
     }
     function postZoosAquariums() {
-        clearDivs()
+        let divName  = 'zoosaquasdiv'
+        clearDivs(divName)
         newDiv = document.createElement('div')
-        newDiv.classList.add("newdiv")
+        newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Zoos and Aquariums</b><br>`
         listVenues(zoosaquariums, zoosAquariums)
     }
 
     
 const listVenues = (checkbox_value, venue) => {
+ 
     if(checkbox_value.checked === true ) { 
         for (let prop in venue) {  
             provCheck = document.querySelector('.province-check')
