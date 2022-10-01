@@ -82,21 +82,7 @@ const koreaSpots = [
     const buddhistTemples = koreaSpots.filter(buddhist => buddhist.info.includes('temple'))
   
  
-    const temples = document.querySelector('#temples');
-    temples.addEventListener('change',postTemples)
-    const skateparks = document.querySelector('#skateparks');
-    skateparks.addEventListener('change', postSkateParks)
-    const skateshops = document.querySelector('#skateshops');
-    skateshops.addEventListener('change', postSkateShops)
-    const musicvenues = document.querySelector('#musicvenues');
-    musicvenues.addEventListener('change', postMusicVenues)
-    const artvenues = document.querySelector('#artvenues');
-    artvenues.addEventListener('change', postArtVenues)
-    const zoosaquariums = document.querySelector('#zoosaquariums');
-    zoosaquariums.addEventListener('change', postZoosAquariums)
-    
-    const checked = document.querySelectorAll('input:checked');
-
+ 
     let provinceChoice
     const provinces = document.querySelector('#provinces')
     provinces.addEventListener('change', () =>{ 
@@ -112,16 +98,54 @@ const koreaSpots = [
         document.body.appendChild(provAdd)
     })
   
+    
+    const searchAdd = (labelNameID, titleLine) => {
+        searchDiv = document.querySelector('.search')
+        const sLabel = document.createElement('label')
+        sLabel.setAttribute('for',`${labelNameID}`)
+        searchDiv.appendChild(sLabel)
+        let sInput = document.createElement('input')
+        sLabel.innerHTML += `<br><b>${titleLine}</b>`
+        sInput.setAttribute('type', 'checkbox')
+        sInput.setAttribute('class', 'checkbox')
+        sInput.setAttribute('value', 'yes')
+        sInput.setAttribute('name', `${labelNameID}`)
+        sInput.setAttribute('id', `${labelNameID}`)
+        sLabel.appendChild(sInput)
+
+    }
+   searchAdd('temples', "Buddhist Temples")
+   searchAdd('skateparks', "Skate Parks")
+   searchAdd('skateshops', "Skate Shops")
+   searchAdd('musicvenues', "Music Venues")
+   searchAdd('artvenues', "Art Venues")
+   searchAdd('zoosaquariums', "Zoos & Aquariums")
+   
+   
+   const temples = document.querySelector('#temples');
+   temples.addEventListener('change',postTemples)
+   const skateparks = document.querySelector('#skateparks');
+   skateparks.addEventListener('change', postSkateParks)
+   const skateshops = document.querySelector('#skateshops');
+   skateshops.addEventListener('change', postSkateShops)
+   const musicvenues = document.querySelector('#musicvenues');
+   musicvenues.addEventListener('change', postMusicVenues)
+   const artvenues = document.querySelector('#artvenues');
+   artvenues.addEventListener('change', postArtVenues)
+   const zoosaquariums = document.querySelector('#zoosaquariums');
+   zoosaquariums.addEventListener('change', postZoosAquariums)
+   
+
     function clearDivs(name) {
         if (document.querySelector(`.${name}`)) {document.querySelector(`.${name}`).remove()}
     }
     function postTemples() {
         let divName = 'templesdiv'
-        let titleLine = `<b>Buddhist Temples</b><br>`
         clearDivs(divName)  
         newDiv = document.createElement('div')
         newDiv.classList.add(divName)
-        newDiv.innerHTML = titleLine
+        newDiv.innerHTML = `<b>Buddhist Temples</b><br>`
+
         listVenues(temples, buddhistTemples)
     }   
     function postSkateParks(){
@@ -183,5 +207,3 @@ const listVenues = (checkbox_value, venue) => {
         }
     }
 }
-
-  
