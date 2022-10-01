@@ -115,41 +115,60 @@ const koreaSpots = [
     }
     function postTemples() {
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Buddhist Temples</b><br>`
         listVenues(temples, buddhistTemples)
     }   
     function postSkateParks(){
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Skate Parks</b><br>`
         listVenues(skateparks, skateParks)
     }
     function postSkateShops() {
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Skate Shops</b><br>`
         listVenues(skateshops, skateShops)
     }
     function postMusicVenues() {
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Music Venues</b><br>`
         listVenues(musicvenues, musicVenues)
     }
     function postArtVenues() {
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Art Venues</b><br>`
         listVenues(artvenues, artVenues)
     }
     function postZoosAquariums() {
         clearDivs()
+        newDiv = document.createElement('div')
+        newDiv.classList.add("newdiv")
+        newDiv.innerHTML = `<b>Zoos and Aquariums</b><br>`
         listVenues(zoosaquariums, zoosAquariums)
     }
 
     
 const listVenues = (checkbox_value, venue) => {
-    newDiv = document.createElement('div')
-    newDiv.classList.add("newdiv")
-    provCheck = document.querySelector('.province-check')
     if(checkbox_value.checked === true ) { 
         for (let prop in venue) {  
+            provCheck = document.querySelector('.province-check')
             current = venue[prop].province.toLowerCase()
                 if (provCheck.classList.contains(current) ||
                  provCheck.classList.contains('all') ) {
                     document.body.appendChild(newDiv)
-                         newDiv.innerHTML += `${venue[prop].venue}, ${venue[prop].city}, ${venue[prop].province}`; 
+                    let filteredResult = `${venue[prop].venue}, ${venue[prop].city}, ${venue[prop].province}<br>`
+                         newDiv.innerHTML += filteredResult
+                        //  return filteredResult
+
                         } 
         }
     }
