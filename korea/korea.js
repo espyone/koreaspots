@@ -84,23 +84,7 @@ const koreaSpots = [
     const outdoorsAttractions = koreaSpots.filter(outdoors => outdoors.category.includes('green'))
  
  
- 
-    let provinceChoice
-    const provinces = document.querySelector('#provinces')
-    provinces.addEventListener('change', () =>{ 
-        // GET PROVINCE VALUE AS VARIAblE
-        provinceChoice = provinces.value.toLowerCase()
-        // REMOVE ANY POSSIBLE PREVIOUS DIVS
-        if (document.querySelector('.province-check')) 
-        {document.querySelector('.province-check').remove()}
-        // CREATE NEW DIV with 'PROVINCE-CHECK' class
-        const provAdd = document.createElement('div')
-        provAdd.classList.add('province-check')
-        provAdd.classList.add(`${provinceChoice}`) 
-        document.body.appendChild(provAdd)
-    })
-  
-    
+
     const searchAdd = (labelNameID, titleLine) => {
         searchDiv = document.querySelector('.search')
         const sLabel = document.createElement('label')
@@ -114,7 +98,6 @@ const koreaSpots = [
         sInput.setAttribute('name', `${labelNameID}`)
         sInput.setAttribute('id', `${labelNameID}`)
         sLabel.appendChild(sInput)
-
     }
    searchAdd('temples', "Buddhist Temples")
    searchAdd('skateparks', "Skate Parks")
@@ -126,26 +109,46 @@ const koreaSpots = [
    searchAdd('outdoorsattractions', "Outdoors Attractions")
    
    
+
+
+
+    const checks = document.querySelectorAll('checkbox')
    const temples = document.querySelector('#temples');
-   temples.addEventListener('change',postTemples)
+   temples.addEventListener('change', () => {
+    provinceSwitch(postTemples)})
    const skateparks = document.querySelector('#skateparks');
-   skateparks.addEventListener('change', postSkateParks)
+   skateparks.addEventListener('change', provinceSwitch(postSkateParks))
    const skateshops = document.querySelector('#skateshops');
-   skateshops.addEventListener('change', postSkateShops)
+   skateshops.addEventListener('change', provinceSwitch(postSkateShops))
    const musicvenues = document.querySelector('#musicvenues');
-   musicvenues.addEventListener('change', postMusicVenues)
+   musicvenues.addEventListener('change', provinceSwitch(postMusicVenues))
    const artvenues = document.querySelector('#artvenues');
-   artvenues.addEventListener('change', postArtVenues)
+   artvenues.addEventListener('change', provinceSwitch(postArtVenues))
    const zoosaquariums = document.querySelector('#zoosaquariums');
-   zoosaquariums.addEventListener('change', postZoosAquariums)
+   zoosaquariums.addEventListener('change', provinceSwitch(postZoosAquariums))
    const amusementparks = document.querySelector('#amusementparks');
-   amusementparks.addEventListener('change', postAmusementParks)
+   amusementparks.addEventListener('change', provinceSwitch(postAmusementParks))
    const outdoorsattractions = document.querySelector('#outdoorsattractions');
-   outdoorsattractions.addEventListener('change', postOutdoorsAttractions)
-   
+   outdoorsattractions.addEventListener('change', provinceSwitch(postOutdoorsAttractions))
+
+   function provinceSwitch(funcRun) {
+    let provinceChoice
+    const provinces = document.querySelector('#provinces')
+    provinces.addEventListener('change', () =>{ 
+        provinceChoice = provinces.value.toLowerCase()
+        if (document.querySelector('.province-check')) 
+        {document.querySelector('.province-check').remove()}
+        const provAdd = document.createElement('div')
+        provAdd.classList.add('province-check')
+        provAdd.classList.add(`${provinceChoice}`) 
+        document.body.appendChild(provAdd)
+        funcRun()
+   })}
+  
 
     function clearDivs(name) {
-        if (document.querySelector(`.${name}`)) {document.querySelector(`.${name}`).remove()}
+        if (document.querySelector(`.${name}`)) {document.querySelector(`.${name}`).remove()
+        }
     }
     function postTemples() {
         let divName = 'templesdiv'
@@ -154,6 +157,7 @@ const koreaSpots = [
         newDiv.classList.add(divName)
         newDiv.innerHTML = `<b>Buddhist Temples</b><span class='${divName}tally'>`
         listVenues(temples, buddhistTemples, `${divName}tally`)
+
     }   
     function postSkateParks(){
         let divName  = 'skateparksdiv'
@@ -212,9 +216,7 @@ const koreaSpots = [
         listVenues(zoosaquariums, zoosAquariums,  `${divName}tally`)
     }
 
-    
 const listVenues = (checkbox_value, venue, passvar) => {
- 
     if(checkbox_value.checked === true ) {
         let results = 0  
         for (let prop in venue) {  
